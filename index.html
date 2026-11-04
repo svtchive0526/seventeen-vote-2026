@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>세븐틴 전곡 총선</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css" />
+<style>
+:root{font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;color:#7079a6;font-synthesis:none}*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:linear-gradient(165deg,#f0f0f0 0%,#f0f0f6 60%,#ececf8 100%)}.app{width:min(100% - 48px, 560px);margin:auto;padding:80px 0 110px}.hero{text-align:center}.tag{display:inline-block;background:white;border-radius:99px;padding:12px 25px;font-size:23px;font-weight:800;letter-spacing:-.06em}.hero h1{font-size:clamp(35px,9vw,48px);font-weight:900;letter-spacing:-.075em;margin:13px 0 80px;line-height:1.2}.sticky-progress{position:sticky;top:0;z-index:20;padding:14px 0 1px;background:linear-gradient(165deg,#f0f0f2 0%,#eeeeF7 100%);isolation:isolate}.progress-track{height:16px;background:#fff;border-radius:20px;overflow:hidden}.progress-fill{height:100%;width:0%;background:#727ba8;border-radius:20px;transition:width .3s}.meta{display:flex;justify-content:space-between;gap:10px;margin:9px 0 24px;font-size:17px;font-weight:800;letter-spacing:-.045em}.meta .round{color:#6375c7;white-space:nowrap}.meta .hint{text-align:right;color:#7a7f9b}.songs{display:grid;gap:9px}.song{display:flex;gap:6px;min-height:54px}.song-info{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;flex:1;padding:0 22px;border-radius:12px;background:#808080;color:white;border:1px solid white}.song-name{font-weight:750;font-size:17px;letter-spacing:-.04em;overflow-wrap:anywhere}.album{font-size:15px;color:#e1e1e1;white-space:nowrap;letter-spacing:-.04em}.song button{flex:0 0 55px;border:1px solid white;border-radius:12px;background:#595d83;color:white;font:700 17px Pretendard,sans-serif;cursor:pointer}.song.selected .song-info,.song.selected button{background:#579567;border-color:#a2e5ad}.song button:focus-visible{outline:3px solid #748ad8;outline-offset:2px}.bottom{margin-top:28px;display:flex;align-items:center;justify-content:space-between;gap:12px}.count{font-weight:700;font-size:15px}.next{border:0;border-radius:12px;background:#595d83;color:#fff;font:750 16px Pretendard,sans-serif;padding:14px 20px;cursor:pointer}.next:disabled{opacity:.4;cursor:not-allowed}.back{border:1px solid #a6abc4;border-radius:12px;background:#fff;color:#626b94;font:700 14px Pretendard,sans-serif;padding:12px;cursor:pointer}.actions{display:flex;gap:8px;align-items:center}.overlay{position:fixed;inset:0;background:#2226388c;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px}.overlay[hidden]{display:none}.dialog{width:min(100%,420px);background:#f7f7fb;border-radius:22px;padding:25px 22px;box-shadow:0 16px 60px #292e4c38;color:#606a99}.dialog h2{margin:0 0 10px;font-size:23px}.dialog p{font-size:14px;line-height:1.6;margin:0 0 20px}.choice{display:block;width:100%;text-align:left;background:white;border:1px solid #d7d9e6;border-radius:12px;padding:15px;margin:9px 0;color:#59648f;font:700 15px Pretendard,sans-serif;cursor:pointer}.choice small{display:block;font-weight:450;margin-top:5px;line-height:1.4}.cancel{background:transparent;border:0;color:#7b809a;padding:10px;font:650 14px Pretendard,sans-serif;cursor:pointer}.note{margin-top:12px;font-size:13px;color:#777d9d;line-height:1.5}@supports (top: env(safe-area-inset-top)){.sticky-progress{top:env(safe-area-inset-top)}}@media(max-width:420px){.app{width:calc(100% - 32px);padding-top:60px}.tag{font-size:18px}.hero h1{margin-bottom:65px}.meta{font-size:13px;margin-bottom:28px}.song-info{padding:0 13px}.song-name{font-size:15px}.album{font-size:12px}.song button{font-size:15px;flex-basis:50px}}
+.sort-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 0 15px;margin-top:-10px}.sort-label{font-size:14px;font-weight:800;color:#737ca5;white-space:nowrap}.sort-options{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.sort-option{border:1px solid #d7d8e4;background:#fff;color:#737995;border-radius:9px;padding:8px 11px;font:700 13px Pretendard,sans-serif;cursor:pointer;white-space:nowrap}.sort-option.active{background:#595d83;color:#fff;border-color:#595d83}.sort-option:focus-visible{outline:3px solid #748ad8;outline-offset:2px}@media(max-width:420px){.sort-option{padding:7px 9px;font-size:12px}.sort-bar{gap:6px}.sort-label{font-size:12px}}
+
+/* Final completion screen */
+.app[hidden],.completion[hidden]{display:none!important}
+body.is-complete{min-height:100dvh}
+.completion{width:min(calc(100% - 48px),560px);min-height:100dvh;min-height:100svh;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 0;color:#737895;letter-spacing:-.055em}
+.completion .hero h1{margin:13px 0 0}
+.completion-content{width:100%;margin-top:86px}
+.complete-message{font-size:clamp(21px,5.4vw,29px);line-height:1.4;font-weight:850;margin:0 0 45px}
+.complete-group{margin:0 0 29px}
+.complete-group h2{font-size:clamp(17px,4.3vw,22px);font-weight:850;margin:0 0 12px;line-height:1.35}
+.complete-link{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;width:100%;min-height:56px;padding:12px 17px 12px 20px;border:1.5px solid #909bc6;border-radius:12px;background:#a4a9c012;text-decoration:none;color:#737895;font-weight:750;font-size:clamp(13px,3.5vw,17px)}
+.complete-link span:last-child{white-space:nowrap;color:#9ca5c4;font-size:14px}
+.complete-link:hover,.complete-link:focus-visible{background:#dfe2f1;outline-offset:3px}
+.complete-footer{margin-top:65px}
+.complete-footer strong{display:block;font-size:clamp(16px,4.4vw,22px);line-height:1.45;font-weight:850}
+.complete-footer p{font-size:11px;margin:14px 0 0;letter-spacing:-.035em}
+.complete-reset{margin-top:40px;border:0;background:none;color:#9298b2;text-decoration:underline;font:600 12px Pretendard,sans-serif;cursor:pointer}
+@media(max-width:420px){.completion{width:calc(100% - 48px)}.completion .tag{font-size:18px}.completion .hero h1{font-size:clamp(32px,9vw,43px)}.completion-content{margin-top:72px}.complete-message{margin-bottom:40px}.complete-footer{margin-top:60px}}
+@media(max-height:760px){.completion{justify-content:flex-start}.completion-content{margin-top:48px}.complete-footer{margin-top:38px}}
+</style>
+</head>
+<body>
+<main class="app" id="vote-app">
+<header class="hero"><div class="tag">2026 셉카이브 배</div><h1>세븐틴 전곡 총선</h1></header>
+<div class="sticky-progress"><div class="progress-track" role="progressbar" aria-label="현재 라운드 곡 선택 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progress"></div></div>
+<div class="meta"><span class="round" id="round">1차 / 5차 진행중</span><span class="hint" id="hint">30곡을 선택해야 다음 라운드로 진행할 수 있어요!</span></div><div class="sort-bar" role="group" aria-label="곡 정렬 방식"><span class="sort-label">정렬</span><div class="sort-options"><button type="button" class="sort-option" data-sort="release">발매순</button><button type="button" class="sort-option" data-sort="reverse">발매역순</button><button type="button" class="sort-option" data-sort="random">랜덤순</button></div></div></div>
+<section class="songs" id="songs" aria-label="곡 선택 목록"></section>
+<div class="bottom"><span class="count" id="count">0곡 선택됨</span><div class="actions"><button class="back" id="back" hidden>이전 라운드</button><button class="next" id="next">다음 라운드</button></div></div>
+<p class="note" id="note">현재는 시안에 포함된 1차 목록만 설정되어 있습니다. 선택 내용은 이 브라우저에 저장됩니다.</p>
+</main>
+<section class="completion" id="completion" aria-label="투표 완료 화면" hidden>
+<header class="hero"><div class="tag">2026 셉카이브 배</div><h1>세븐틴 전곡 총선</h1></header>
+<div class="completion-content">
+<p class="complete-message">제출이 완료되었습니다!<br>올해도 함께 참여해주셔서 감사합니다!</p>
+<div class="complete-group"><h2>멤버별 리즈 픽 총선도 참여하러 가기</h2><a class="complete-link" href="https://form.naver.com/response/I5qUxjbBwmc" target="_blank" rel="noopener noreferrer"><span>올해도 돌아왔다! 멤버별 리즈 픽 총선</span><span>바로가기 ↗</span></a></div>
+<div class="complete-group"><h2>지금을 틈타 마마 해시태그 투표하러 바로가기</h2><a class="complete-link" href="https://twitter.com/intent/tweet?text=%232026MAMAVOTE%20%23SEVENTEEN" target="_blank" rel="noopener noreferrer"><span>자동으로 해시태그를 쓸 수 있어요!</span><span>바로가기 ↗</span></a></div>
+<div class="complete-footer"><strong>결과는 11월 8일 마감 이후 발표 예정입니다.<br>트위터에서 총선을 공유하고 캐럿들과 함께 즐겨주세요!</strong><p>공유하고 즐겨주시면 다음 해의 진행에도 큰 힘이 됩니다</p></div>
+<button type="button" class="complete-reset" id="complete-reset">처음부터 다시 투표하기</button>
+</div></section>
+<div class="overlay" id="submit-overlay" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="submit-title"><h2 id="submit-title">최종 제출 확인</h2><p id="submit-desc">선택한 곡을 제출할까요?</p><button type="button" class="choice" id="submit-confirm">제출 완료하기</button><button type="button" class="cancel" id="submit-cancel">돌아가기</button></div></div>
+<div class="overlay" id="overlay" hidden><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title"><h2 id="dialog-title">다음 라운드 후보 선택</h2><p id="dialog-desc"></p><button class="choice" id="keep">이전 라운드 선택곡만 보기<small>직전 라운드에서 고른 곡만 후보로 표시해요.</small></button><button class="choice" id="all">전체 곡 다시 보기<small>이전 선택과 상관없이 전체 195곡을 다시 표시해요.</small></button><button class="cancel" id="cancel">취소</button></div></div>
+<script>
+const rounds=[[
+['아낀다','17 CARAT'],['Shining Diamond','17 CARAT'],['Ah Yeah','17 CARAT'],['Jam Jam','17 CARAT'],['20','17 CARAT'],['만세','BOYS BE'],['표정관리','BOYS BE'],['어른이 되면','BOYS BE'],['OMG','BOYS BE'],['ROCK','BOYS BE'],["Q&A","Q&A"],["Chocolate","2016 월간 윤종신 2월호"],["예쁘다","First LOVE&LETTER"],["엄지척","First LOVE&LETTER"],["이놈의 인기","First LOVE&LETTER"],["유행가","First LOVE&LETTER"],["Say Yes","First LOVE&LETTER"],["떠내려가","First LOVE&LETTER"],["아낀다 *보컬팀 Ver.","First LOVE&LETTER"],["만.세 *힙합팀 Ver.","First LOVE&LETTER"],["Shining Diamond *퍼포먼스팀 Ver.","First LOVE&LETTER"],["사랑쪽지","First LOVE&LETTER"],["아주 NICE","Love&Letter Repackage"],["NO F.U.N","Love&Letter Repackage"],["힐링","Love&Letter Repackage"],["끝이 안보여","Love&Letter Repackage"],["붐붐","Going Seventeen"],["BEAUTIFUL","Going Seventeen"],["HIGHLIGHT","Going Seventeen"],["기대","Going Seventeen"],["빠른 걸음","Going Seventeen"],["몰래 듣지 마요","Going Seventeen"],["글쎄","Going Seventeen"],["웃음꽃","Going Seventeen"],["울고 싶지 않아","Al1"],["입버릇","Al1"],["IF I","Al1"],["Swimming Fool","Al1"],["MY I","Al1"],["Crazy in Love","Al1"],["WHO","Al1"],["Check-In","Al1"],["박수","TEEN, AGE"],["Intro.","TEEN, AGE"],["CHANGE UP","TEEN, AGE"],["모자를 눌러 쓰고","TEEN, AGE"],["날 쏘고 가라","TEEN, AGE"],["13월의 춤","TEEN, AGE"],["TRAUMA","TEEN, AGE"],["바람개비","TEEN, AGE"],["Flower","TEEN, AGE"],["ROCKET","TEEN, AGE"],["Hello","TEEN, AGE"],["캠프파이어","TEEN, AGE"],["Outro.","TEEN, AGE"],["고맙다","DIRECTOR'S CUT"],["Thinkin' about you","DIRECTOR'S CUT"],["지금 널 찾아가고 있어","DIRECTOR'S CUT"],["Falling For U","DIRECTOR'S CUT"],["Call Call Call!","WE MAKE YOU"],["어쩌나","YOU MAKE MY DAY"],["Holiday","YOU MAKE MY DAY"],["나에게로 와","YOU MAKE MY DAY"],["What's Good","YOU MAKE MY DAY"],["MOONWALKER","YOU MAKE MY DAY"],["우리의 새벽은 낮보다 뜨겁다","YOU MAKE MY DAY"],["A-TEEN","A-TEEN Part.3"],["Home","YOU MADE MY DAWN"],["Good to Me","YOU MADE MY DAWN"],["포옹","YOU MADE MY DAWN"],["칠리","YOU MADE MY DAWN"],["Shhh","YOU MADE MY DAWN"],["숨이 차","YOU MADE MY DAWN"],["9-TEEN","A-TEEN2 Part.2"],["Happy Ending","Happy Ending"],["HIT","HIT"],["독 : Fear","An Ode"],["거짓말을 해","An Ode"],["Let me hear you say","An Ode"],["247","An Ode"],["Second Life","An Ode"],["Network Love","An Ode"],["Back it up","An Ode"],["Lucky","An Ode"],["Snap Shoot","An Ode"], ["SWEETEST THING","초콜릿 OST Part.1"], ["Fallin' Flower","Fallin' Flower"],
+["Left & Right", "헹가래"],
+["Fearless", "헹가래"],
+["좋겠다", "헹가래"],
+["My My", "헹가래"],
+["어른 아이", "헹가래"],
+["같이 가요", "헹가래"],
+["24H", "24H"],
+["HOME;RUN", ";[Semicolon]"],
+["도레미", ";[Semicolon]"],
+["HEY BUDDY", ";[Semicolon]"],
+["마음에 불을 지펴", ";[Semicolon]"],
+["AH! LOVE", ";[Semicolon]"],
+["겨우", ";[Semicolon]"],
+["Not Alone", "Not Alone"],
+["Bittersweet", "Bittersweet (원우x민규)"],
+["Ready to love", "Your Choice"],
+["Heaven's Cloud", "Your Choice"],
+["Anyone", "Your Choice"],
+["GAM3 BO1", "Your Choice"],
+["Wave", "Your Choice"],
+["같은 꿈, 같은 맘, 같은 밤", "Your Choice"],
+["Warrior", "Falling Into Your Smile OST"],
+["여전히 아름다운지", "슬기로운 의사생활 시즌2 OST Part8"],
+["Rock with you", "Attacca"],
+["소용돌이", "Attacca"],
+["Crush", "Attacca"],
+["PANG!", "Attacca"],
+["매일 그대라서 행복하다", "Attacca"],
+["그리워하는 것까지", "Attacca"],
+["2 MINUS 1", "Attacca"],
+["Power of Love", "Power of Love"],
+["Darl+ing", "Face the Sun"],
+["HOT", "Face the Sun"],
+["DON QUIXOTE", "Face the Sun"],
+["March", "Face the Sun"],
+["Domino", "Face the Sun"],
+["Shadow", "Face the Sun"],
+["노래해", "Face the Sun"],
+["IF you leave me", "Face the Sun"],
+["Ash", "Face the Sun"],
+["_WORLD", "SECTOR 17"],
+["돌고 돌아", "SECTOR 17"],
+["CHEERS", "SECTOR 17"],
+["DREAM", "DREAM"],
+["BETTING", "BETTING"],
+["파이팅 해야지", "SECOND WIND"],
+["LUNCH", "SECOND WIND"],
+["7시에 들어줘", "SECOND WIND"],
+["F*ck My Life", "FML"],
+["손오공", "FML"],
+["Fire", "FML"],
+["I Don't Understand But I Luv U", "FML"],
+["먼지", "FML"],
+["April Shower", "FML"],
+["Sara Sara", "Sara Sara"],
+["Ima -Even if the world ends tomorrow-", "ALWAYS YOURS"],
+["음악의 신", "SEVENTEENTH HEAVEN"],
+["SOS", "SEVENTEENTH HEAVEN"],
+["Diamond Days", "SEVENTEENTH HEAVEN"],
+["Back 2 Back", "SEVENTEENTH HEAVEN"],
+["Monster", "SEVENTEENTH HEAVEN"],
+["하품", "SEVENTEENTH HEAVEN"],
+["Headliner", "SEVENTEENTH HEAVEN"],
+["경음악의 신", "경음악의 신"],
+["MAESTRO", "17 IS RIGHT HERE"],
+["LALALI", "17 IS RIGHT HERE"],
+["Spell", "17 IS RIGHT HERE"],
+["청춘찬가", "17 IS RIGHT HERE"],
+["어젯밤", "THIS MAN (정한x원우)"],
+["LOVE, MONEY, FAME", "SPILL THE FEELS"],
+["Eyes on you", "SPILL THE FEELS"],
+["1 TO 13", "SPILL THE FEELS"],
+["사탕", "SPILL THE FEELS"],
+["Rain", "SPILL THE FEELS"],
+["Water", "SPILL THE FEELS"],
+["Shohikigen", "Shohikigen"],
+["청바지", "TELEPARTY"],
+["Happy Alone", "TELEPARTY"],
+["사랑 노래", "TELEPARTY"],
+["PINOCCHIO", "BEAM (호시x우지)"],
+["동갑내기", "BEAM (호시x우지)"],
+["STUPID IDIOT", "BEAM (호시x우지)"],
+["HBD", "HAPPY BURSTDAY"],
+["THUNDER", "HAPPY BURSTDAY"],
+["Bad Influence", "HAPPY BURSTDAY"],
+["Where love passed", "Where love passed"],
+["5, 4, 3 (Pretty Woman)", "HYPE VIBES (에스쿱스x민규)"],
+["Fiesta", "HYPE VIBES (에스쿱스x민규)"],
+["Worth it", "HYPE VIBES (에스쿱스x민규)"],
+["For you", "HYPE VIBES (에스쿱스x민규)"],
+["Young again", "HYPE VIBES (에스쿱스x민규)"],
+["Earth", "HYPE VIBES (에스쿱스x민규)"],
+["Blue", "소야곡 (도겸x승관)"],
+["Guilty Pleasure", "소야곡 (도겸x승관)"],
+["Silence", "소야곡 (도겸x승관)"],
+["Prelude of love", "소야곡 (도겸x승관)"],
+["Tiny Light", "Tiny Light"],
+["singasong", "V8 (V8)"],
+["Friend", "V8 (V8)"],
+["BEAT", "V8 (V8)"],
+["컬러링", "V8 (V8)"],
+["girlsnboys", "V8 (V8)"],
+["rat race", "V8 (V8)"],
+["12 o'clock", "DREAMSCAPE (정한x조슈아)"],
+["Like you", "DREAMSCAPE (정한x조슈아)"],
+["Outside", "DREAMSCAPE (정한x조슈아)"],
+["One plus one", "DREAMSCAPE (정한x조슈아)"],
+["No looking back", "DREAMSCAPE (정한x조슈아)"]
+]];
+const limits=[30,20,10,5,3],minimums=[20,10,5,3,1];
+const catalog=rounds[0];
+const storageKey='svt-vote-2026-demo-v1';
+const submitEndpoint='https://jgtdoiplgladghivxtli.supabase.co/functions/v1/submit-vote';
+let submitting=false;
+let state;
+try{state=JSON.parse(localStorage.getItem(storageKey))||{}}catch{state={}}
+if(!state||typeof state!=='object')state={};
+if(!state.selections||typeof state.selections!=='object')state.selections={};
+if(!state.modes||typeof state.modes!=='object')state.modes={};
+if(!state.sorts||typeof state.sorts!=='object')state.sorts={};
+if(!state.randomOrders||typeof state.randomOrders!=='object')state.randomOrders={};
+if(!Number.isInteger(state.round)||state.round<0||state.round>4)state.round=0;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem(storageKey,JSON.stringify(state))}catch(e){console.warn('저장 불가',e)}}
+function selection(r){return [...new Set((state.selections[r]||[]).filter(i=>Number.isInteger(i)&&i>=0&&i<catalog.length))]}
+function candidates(r){return r===0||state.modes[r]==='all'?catalog.map((_,i)=>i):selection(r-1)}
+function resetLater(r){for(let k=r+1;k<5;k++){delete state.selections[k];delete state.modes[k];delete state.sorts[k];delete state.randomOrders[k]}delete state.completed}
+function openDialog(){const r=state.round; $('dialog-title').textContent=`${r+2}라운드 후보 선택`; $('dialog-desc').textContent=`${r+1}라운드에서 ${selection(r).length}곡을 선택했어요. ${r+2}라운드의 후보를 어떻게 구성할까요?`; $('overlay').hidden=false}
+function closeDialog(){$('overlay').hidden=true}
+function closeSubmitDialog(){$('submit-overlay').hidden=true}
+$('submit-cancel').addEventListener('click',closeSubmitDialog);
+$('submit-overlay').addEventListener('click',e=>{if(e.target===$('submit-overlay'))closeSubmitDialog()});
+$('submit-confirm').addEventListener('click',async()=>{
+ if(submitting)return;
+ const r=4,n=selection(r).filter(i=>new Set(candidates(r)).has(i)).length;
+ if(state.round!==4||n<minimums[r]||n>limits[r]){closeSubmitDialog();render();return}
+ const payload={rounds:Array.from({length:5},(_,i)=>selection(i)),modes:Array.from({length:5},(_,i)=>i===0?'all':state.modes[i])};
+ const button=$('submit-confirm');
+ submitting=true;button.disabled=true;button.textContent='서버에 제출 중...';
+ try{
+  const response=await fetch(submitEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const data=await response.json().catch(()=>null);
+  if(!response.ok||data?.success!==true)throw new Error(data?.error||`서버 오류 (${response.status})`);
+  state.completed=true;save();closeSubmitDialog();showCompletion();
+ }catch(err){
+  alert(`투표 결과를 저장하지 못했어요. 인터넷 연결을 확인하고 다시 시도해 주세요.\n\n${err.message||'알 수 없는 오류'}`);
+ }finally{submitting=false;button.disabled=false;button.textContent='제출 완료하기'}
+});
+function advance(mode){const next=state.round+1;resetLater(state.round);state.modes[next]=mode;state.selections[next]=[];state.round=next;closeDialog();save();render();window.scrollTo({top:0,behavior:'instant'})}
+document.querySelectorAll('.sort-option').forEach(button=>button.addEventListener('click',()=>{
+ const r=state.round, sort=button.dataset.sort;
+ if(sort==='random'&&state.sorts[r]!=='random'){
+  const indices=candidates(r).slice();
+  for(let i=indices.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[indices[i],indices[j]]=[indices[j],indices[i]]}
+  state.randomOrders[r]=indices;
+ }
+ state.sorts[r]=sort;save();render();
+}));
+$('keep').addEventListener('click',()=>advance('keep'));
+$('all').addEventListener('click',()=>advance('all'));
+$('cancel').addEventListener('click',closeDialog);
+$('overlay').addEventListener('click',e=>{if(e.target===$('overlay'))closeDialog()});
+$('back').addEventListener('click',()=>{if(state.round>0){state.round--;delete state.completed;save();render();window.scrollTo({top:0,behavior:'instant'})}});
+function render(){
+ if(state.completed){showCompletion();return}
+ $('vote-app').hidden=false;$('completion').hidden=true;document.body.classList.remove('is-complete');
+ const oldResults=$('results');if(oldResults)oldResults.remove();
+ const r=state.round, allowed=candidates(r), allowedSet=new Set(allowed);
+ const chosen=selection(r).filter(i=>allowedSet.has(i));
+ if(chosen.length!==(state.selections[r]||[]).length){state.selections[r]=chosen;save()}
+ const selected=new Set(chosen), max=limits[r],min=minimums[r],percent=Math.min(100,chosen.length/max*100);
+ $('round').textContent=`${r+1}차 / 5차 진행중`;
+ $('progress').style.width=`${percent}%`;
+ $('progress').parentElement.setAttribute('aria-valuenow',String(Math.round(percent)));
+ $('hint').textContent=`${min}~${max}곡 선택 · ${chosen.length}/${max}곡`;
+ document.querySelectorAll('.sort-option').forEach(button=>{const active=button.dataset.sort===(state.sorts[r]||'release');button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active))});
+ const sort=state.sorts[r]||'release';
+ let display=allowed.slice();
+ if(sort==='reverse')display.reverse();
+ if(sort==='random'){
+  const valid=new Set(allowed),saved=state.randomOrders[r]||[];
+  display=[...saved.filter(i=>valid.has(i)),...allowed.filter(i=>!saved.includes(i))];
+ }
+ $('songs').replaceChildren();
+ display.forEach(i=>{
+  const [name,album]=catalog[i],isSelected=selected.has(i);
+  const row=document.createElement('div');row.className='song'+(isSelected?' selected':'');
+  const info=document.createElement('div');info.className='song-info';
+  const title=document.createElement('span');title.className='song-name';title.textContent=name;
+  const albumEl=document.createElement('span');albumEl.className='album';albumEl.textContent=album;
+  info.append(title,albumEl);
+  const button=document.createElement('button');button.type='button';button.textContent=isSelected?'해제':'선택';
+  button.setAttribute('aria-pressed',String(isSelected));button.setAttribute('aria-label',`${name} ${isSelected?'선택 해제':'선택'}`);
+  button.addEventListener('click',()=>{
+   const set=new Set(selection(r));
+   if(set.has(i))set.delete(i);
+   else if(set.size<max)set.add(i);
+   else{alert(`${r+1}라운드는 최대 ${max}곡까지 선택할 수 있어요. 다른 곡을 선택하려면 기존 선택을 해제해 주세요.`);return}
+   state.selections[r]=[...set];resetLater(r);save();render();
+  });
+  row.append(info,button);$('songs').append(row);
+ });
+ $('count').textContent=`${chosen.length}/${max}곡 선택`;
+ $('back').hidden=r===0;
+ $('next').disabled=chosen.length<min||chosen.length>max;
+ $('next').textContent=r===4?'최종 제출하기':'다음 라운드';
+ $('next').onclick=()=>{
+  if(chosen.length<min||chosen.length>max)return;
+  if(r===4){$('submit-desc').textContent=`5라운드에서 선택한 ${chosen.length}곡을 최종 제출할까요?`; $('submit-overlay').hidden=false;}else openDialog();
+ };
+ $('note').textContent=r===0?`전체 ${catalog.length}곡 중 ${min}~${max}곡을 선택해 주세요. 선택 내역은 이 브라우저에 저장됩니다.`:`${state.modes[r]==='all'?'전체 곡 다시 보기':'이전 라운드 선택곡만 보기'} · 후보 ${allowed.length}곡 · ${min}~${max}곡 선택 가능. 이전 라운드의 선택을 변경하면 이후 라운드의 선택은 초기화됩니다.`;
+
+}
+function showCompletion(){
+ $('overlay').hidden=true;
+ $('submit-overlay').hidden=true;
+ $('vote-app').hidden=true;
+ $('completion').hidden=false;
+ document.body.classList.add('is-complete');
+ window.scrollTo({top:0,behavior:'instant'});
+}
+$('complete-reset').addEventListener('click',()=>{
+ if(!confirm('모든 라운드 선택 기록을 지우고 처음부터 다시 투표할까요?'))return;
+ state={round:0,selections:{},modes:{},sorts:{},randomOrders:{}};
+ save();render();window.scrollTo({top:0,behavior:'instant'});
+});
+render();
+</script>
+</body>
+</html>
