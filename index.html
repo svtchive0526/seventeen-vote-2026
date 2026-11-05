@@ -31,6 +31,7 @@ body.is-complete{min-height:100dvh}
 </head>
 <body>
 <main class="app" id="vote-app">
+<p style="text-align:center;margin:0 0 25px"><a href="./share.html" style="color:#6375a7;font-weight:800">💎 이미 투표했나요? 나의 최종 PICK 공유하기 ↗</a></p>
 <header class="hero"><div class="tag">2026 셉카이브 배</div><h1>세븐틴 전곡 총선</h1></header>
 <div class="sticky-progress"><div class="progress-track" role="progressbar" aria-label="현재 라운드 곡 선택 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progress"></div></div>
 <div class="meta"><span class="round" id="round">1차 / 5차 진행중</span><span class="hint" id="hint">30곡을 선택해야 다음 라운드로 진행할 수 있어요!</span></div><div class="sort-bar" role="group" aria-label="곡 정렬 방식"><span class="sort-label">정렬</span><div class="sort-options"><button type="button" class="sort-option" data-sort="release">발매순</button><button type="button" class="sort-option" data-sort="reverse">발매역순</button><button type="button" class="sort-option" data-sort="random">랜덤순</button></div></div></div>
@@ -42,6 +43,7 @@ body.is-complete{min-height:100dvh}
 <header class="hero"><div class="tag">2026 셉카이브 배</div><h1>세븐틴 전곡 총선</h1></header>
 <div class="completion-content">
 <p class="complete-message">제출이 완료되었습니다!<br>올해도 함께 참여해주셔서 감사합니다!</p>
+<div class="complete-group"><h2>💎 나의 최종 PICK 공유하기</h2><p>이미 투표했다면 직접 곡을 선택해 공유 카드를 만들 수 있어요.</p><a class="complete-link" id="share-complete-link" href="./share.html"><span>나의 최종 PICK 카드 만들기</span><span>바로가기 ↗</span></a></div>
 <div class="complete-group"><h2>멤버별 리즈 픽 총선도 참여하러 가기</h2><a class="complete-link" href="https://form.naver.com/response/I5qUxjbBwmc" target="_blank" rel="noopener noreferrer"><span>올해도 돌아왔다! 멤버별 리즈 픽 총선</span><span>바로가기 ↗</span></a></div>
 <div class="complete-group"><h2>지금을 틈타 마마 해시태그 투표하러 바로가기</h2><a class="complete-link" href="https://twitter.com/intent/tweet?text=%232026MAMAVOTE%20%23SEVENTEEN" target="_blank" rel="noopener noreferrer"><span>자동으로 해시태그를 쓸 수 있어요!</span><span>바로가기 ↗</span></a></div>
 <div class="complete-footer"><strong>결과는 11월 8일 마감 이후 발표 예정입니다.<br>트위터에서 총선을 공유하고 캐럿들과 함께 즐겨주세요!</strong><p>공유하고 즐겨주시면 다음 해의 진행에도 큰 힘이 됩니다</p></div>
@@ -164,7 +166,7 @@ const rounds=[[
 const limits=[30,20,10,5,3],minimums=[20,10,5,3,1];
 const catalog=rounds[0];
 const storageKey='svt-vote-2026-demo-v1';
-const submitEndpoint='https://jgtdojplgladghivxtlj.supabase.co/functions/v1/submit-vote';
+const submitEndpoint='https://jgtdoiplgladghivxtli.supabase.co/functions/v1/submit-vote';
 let submitting=false;
 let state;
 try{state=JSON.parse(localStorage.getItem(storageKey))||{}}catch{state={}}
@@ -195,7 +197,7 @@ $('submit-confirm').addEventListener('click',async()=>{
   const response=await fetch(submitEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   const data=await response.json().catch(()=>null);
   if(!response.ok||data?.success!==true)throw new Error(data?.error||`서버 오류 (${response.status})`);
-  state.completed=true;save();closeSubmitDialog();showCompletion();
+  state.completed=true;save();try{sessionStorage.setItem('svt-final-pick-share-once',JSON.stringify(selection(4)))}catch{}$('share-complete-link').href='./share.html?auto=1';closeSubmitDialog();showCompletion();
  }catch(err){
   alert(`투표 결과를 저장하지 못했어요. 인터넷 연결을 확인하고 다시 시도해 주세요.\n\n${err.message||'알 수 없는 오류'}`);
  }finally{submitting=false;button.disabled=false;button.textContent='제출 완료하기'}
